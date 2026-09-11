@@ -1,0 +1,36 @@
+[
+  {
+    "file": "src/kv.c",
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Iinc",
+      "-O2",
+      "-DNDEBUG",
+      "-c",
+      "src/kv.c",
+      "-o",
+      "obj/kv.o"
+    ],
+    "directory": "/home/steve/src/Tutorial/lowlevel/kvprj",
+    "output": "obj/kv.o"
+  },
+  {
+    "file": "src/main.c",
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-Iinc",
+      "-O2",
+      "-DNDEBUG",
+      "-c",
+      "src/main.c",
+      "-o",
+      "obj/main.o"
+    ],
+    "directory": "/home/steve/src/Tutorial/lowlevel/kvprj",
+    "output": "obj/main.o"
+  }
+]

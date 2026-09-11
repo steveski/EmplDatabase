@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TOMBSTONE 0x1
+#define TOMBSTONE ((char)0x1)
 
 kv_t *kv_init(size_t capacity) 
 {
@@ -17,7 +17,7 @@ kv_t *kv_init(size_t capacity)
     table->capacity = capacity;
     table->count = 0;
 
-    table->entries = calloc(sizeof(kv_entry_t), capacity);
+    table->entries = calloc(capacity, sizeof(kv_entry_t));
     if(table->entries == NULL)
     {
         return NULL;
@@ -55,7 +55,7 @@ int kv_put(kv_t *db, char *key, char *value)
     if(!db || !key || !value) return -1;
 
     size_t hsh = hash(key, db->capacity);
-    for(int i = 0; i < db->capacity - 1; i++)
+    for(size_t i = 0; i < db->capacity - 1; i++)
     {
         size_t real_idx = (hsh + i) % db->capacity;
         kv_entry_t *entry = &db->entries[real_idx];
@@ -69,7 +69,7 @@ int kv_put(kv_t *db, char *key, char *value)
             if(!newVal) return -1;
             entry->value = newVal;
 
-            return real_idx;
+            return 0;
         }
 
         // land in a slot that is "empty"
@@ -88,7 +88,7 @@ int kv_put(kv_t *db, char *key, char *value)
             entry->key = newKey;
             db->count++;
 
-            return real_idx;
+            return 0;
         }
 
     }
@@ -96,8 +96,8 @@ int kv_put(kv_t *db, char *key, char *value)
     return -1;
 }
 
-char *kv_get(kv_t *db, const char *key)
-{
+// char *kv_get(kv_t *db, const char *key)
+// {
 
-}
+// }
 

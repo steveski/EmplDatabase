@@ -3,25 +3,25 @@
 
 int main()
 {
-    kv_t* table = kv_init(1024);
+    kv_t* table = kv_init(3);
 
     printf("%p\n", table);
     printf("%ld\n", table->count);
     printf("%ld\n", table->capacity);
 
     kv_put(table, "hehe", "haha");
-    kv_put(table, "hehe", "hoho");
-    kv_put(table, "lala", "hoho");
-    kv_put(table, "snoogans", "nootch");
+    kv_put(table, "color", "blue");
+    kv_put(table, "colour", "red");
 
-    for(int i = 0; i < table->capacity; i++)
+    for(size_t i = 0; i < table->capacity; i++)
     {
         if(table->entries[i].key)
         {
-            printf("[%d] %s: %s\n",
+            printf("[%ld] %s: %s\n",
                 i,
                 table->entries[i].key,
                 table->entries[i].value);
+            printf("size: %ld\n", table->count);
         }
     }
 
