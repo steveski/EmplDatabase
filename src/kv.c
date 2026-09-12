@@ -42,7 +42,7 @@ size_t hash(char *val, int capacity)
     return hash % capacity;
 }
 
-// fn kv+put
+// fn kv_put
 // params:
 //  - db: a pointer to the db
 //  - key: a pointer to the key value
@@ -96,8 +96,38 @@ int kv_put(kv_t *db, char *key, char *value)
     return -1;
 }
 
-// char *kv_get(kv_t *db, const char *key)
-// {
+// fn kv_put
+// params:
+//  - db: a pointer to the db
+//  - key: a pointer to the key value
+//  - value: a pointer to the value itself
+// returns: the index of the key, otherwise on
+// error, returns -2
+char *kv_get(kv_t *db, char *key)
+{
+    if(!db || !key) return NULL;
 
-// }
+    size_t hsh = hash(key, db->capacity);
+    for(size_t i = 0; i < db->capacity - 1; i++)
+    {
+        size_t real_idx = (hsh + i) % db->capacity;
+        kv_entry_t *entry = &db->entries[real_idx];
+
+        // No key, therefore return nothing
+        if(entry->key == NULL)
+        {
+            return NULL;
+        }
+
+        // Find an entry and the keys match
+        if(entry->key &&
+            entry->key != (void*)TOMBSTONE &&
+            !strcmp(entry->key, key))
+        {
+            return entry->value;
+        }
+    }
+
+    return NULL;
+}
 
